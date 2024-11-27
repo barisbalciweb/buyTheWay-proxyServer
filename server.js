@@ -9,6 +9,10 @@ dotenv.config();
 
 app.use(cors());
 
+app.get("/", async (req, res)=>{
+   res.send("Working!") 
+}); 
+
 app.use(
   "/api",
   createProxyMiddleware({
