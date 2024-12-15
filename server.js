@@ -22,6 +22,29 @@ app.use(
     pathRewrite: {
       "^/api": "",
     },
+    onProxyRes: (proxyRes, req, res) => {
+      proxyRes.headers["Access-Control-Allow-Origin"] =
+        "https://btw.barisbalci.de";
+      proxyRes.headers["Access-Control-Allow-Credentials"] = "true";
+    },
+    onProxyReq: (proxyReq, req, res) => {
+      if (req.method === "OPTIONS") {
+        res.setHeader(
+          "Access-Control-Allow-Origin",
+          "https://btw.barisbalci.de"
+        );
+        res.setHeader("Access-Control-Allow-Credentials", "true");
+        res.setHeader(
+          "Access-Control-Allow-Methods",
+          "GET, POST, PUT, DELETE, OPTIONS"
+        );
+        res.setHeader(
+          "Access-Control-Allow-Headers",
+          "Content-Type, Authorization"
+        );
+        res.status(200).end();
+      }
+    },
   })
 );
 
